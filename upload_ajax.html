@@ -1,0 +1,28 @@
+<html>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <form>
+  <input type="file" id="file" multiple /><br><br>
+  <input type="button" value="Upload File" onclick="upload()" />
+  </form>
+  <br>
+  <script>
+
+  function upload () {
+    var filesToBeUploaded = document.querySelector('#file');
+    var file = filesToBeUploaded.files[0]; 
+    const form = new FormData();
+
+    form.append('key', 'lab1.png')
+    form.append('AWSAccessKeyId', 'AKIASJ4U4WSDIO7MQSVU')
+    form.append('policy', 'eyJleHBpcmF0aW9uIjogIjIwMjAtMDUtMjVUMDk6Mzk6MThaIiwgImNvbmRpdGlvbnMiOiBbeyJidWNrZXQiOiAiczNkZXZsYWIxIn0sIHsia2V5IjogImxhYjEucG5nIn1dfQ==')
+    form.append('signature', 'tGWqMiZi9uiubdtvRvkTMlFsmpU=')
+    form.append('file', file)
+
+    axios.post('https://s3devlab1.s3.amazonaws.com/', form).then(res => {
+      console.log(res);
+    }).catch(err => {
+      console.log(err);
+    })
+  } 
+  </script>
+</html>
